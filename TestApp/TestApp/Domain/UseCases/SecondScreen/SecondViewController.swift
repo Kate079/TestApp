@@ -29,6 +29,12 @@ final class SecondViewController: UIViewController {
 
     // MARK: - Private properties
 
+    private var isNextScreenWasShown = false {
+        didSet {
+            configureMainButtonHandler(isNextScreenWasShown: isNextScreenWasShown)
+        }
+    }
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -78,16 +84,29 @@ final class SecondViewController: UIViewController {
     private func configureMainButton(isLastPage: Bool) {
         if isLastPage {
             mainButton.setMainButtonTitle("Continue")
-            mainButton.buttonAction = { [weak self] in
-                let thirdViewController = ThirdViewController()
-                thirdViewController.modalPresentationStyle = .overCurrentContext
-                thirdViewController.modalTransitionStyle = .crossDissolve
-                self?.present(thirdViewController, animated: true)
-            }
+            configureMainButtonHandler(isNextScreenWasShown: isNextScreenWasShown)
         } else {
             mainButton.setMainButtonTitle("Next")
             mainButton.buttonAction = { [weak self] in
                 self?.pageView.showNextPage()
+            }
+        }
+    }
+
+    private func configureMainButtonHandler(isNextScreenWasShown: Bool) {
+        if isNextScreenWasShown {
+            mainButton.buttonAction = { [weak self] in
+                guard let self = self else { return }
+                let alert = self.createAlert(title: "Thank you for your interest", message: "The functionality is under development", buttonTitle: "OK", buttonHandler: nil)
+                self.present(alert, animated: true)
+            }
+        } else {
+            mainButton.buttonAction = { [weak self] in
+                self?.isNextScreenWasShown = true
+                let thirdViewController = ThirdViewController()
+                thirdViewController.modalPresentationStyle = .overCurrentContext
+                thirdViewController.modalTransitionStyle = .crossDissolve
+                self?.present(thirdViewController, animated: true)
             }
         }
     }

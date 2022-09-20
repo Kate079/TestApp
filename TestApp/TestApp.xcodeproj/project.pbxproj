@@ -19,6 +19,7 @@
 		2491178928D61A540035171C /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2491178828D61A540035171C /* PageView.swift */; };
 		2491178F28D753B50035171C /* HorizontalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2491178E28D753B50035171C /* HorizontalCollectionViewCell.swift */; };
 		2491179428D88FBD0035171C /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2491179328D88FBD0035171C /* ModalView.swift */; };
+		2491179628D9C5230035171C /* UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2491179528D9C5230035171C /* UIViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		2491178828D61A540035171C /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		2491178E28D753B50035171C /* HorizontalCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalCollectionViewCell.swift; sourceTree = "<group>"; };
 		2491179328D88FBD0035171C /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
+		2491179528D9C5230035171C /* UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,7 +74,6 @@
 				2491177328D5DF490035171C /* Application */,
 				2491177528D5DF620035171C /* Resources */,
 				2491177928D5E2570035171C /* Common */,
-				2491179228D88F220035171C /* ModalView */,
 				2491177628D5DF860035171C /* Domain */,
 			);
 			path = TestApp;
@@ -144,6 +145,7 @@
 			children = (
 				2491179128D790F50035171C /* MainButton */,
 				2491179028D790E40035171C /* PageView */,
+				2491179228D88F220035171C /* ModalView */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -152,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				2491177E28D5FE230035171C /* Colors.swift */,
+				2491179528D9C5230035171C /* UIViewController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				2491178F28D753B50035171C /* HorizontalCollectionViewCell.swift in Sources */,
 				2491178528D605A10035171C /* SecondViewController.swift in Sources */,
 				2491178928D61A540035171C /* PageView.swift in Sources */,
+				2491179628D9C5230035171C /* UIViewController.swift in Sources */,
 				2491177C28D5E2720035171C /* MainButton.swift in Sources */,
 				2491177F28D5FE230035171C /* Colors.swift in Sources */,
 				2491179428D88FBD0035171C /* ModalView.swift in Sources */,
