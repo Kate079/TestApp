@@ -21,7 +21,7 @@ final class ThirdViewController: UIViewController {
 
     // MARK: - Public properties
 
-    // MARK: - Private properties
+    var isScreenWasShown: (() -> Void)?
 
     // MARK: - Lifecycle
 
@@ -51,16 +51,8 @@ final class ThirdViewController: UIViewController {
 
     private func configureModalViewButton() {
         modalView.updateButton(isEnable: true) { [weak self] in
+            self?.isScreenWasShown?()
             self?.dismiss(animated: true)
         }
-    }
-
-    // MARK: - Public methods
-}
-
-// MARK: - Layout constants
-
-extension ThirdViewController {
-    private enum Constants {
     }
 }

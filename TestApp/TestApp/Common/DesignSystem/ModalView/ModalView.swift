@@ -21,7 +21,7 @@ final class ModalView: UIView {
     private lazy var mainButton: MainButton = {
         let button = MainButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setMainButtonTitle("Continue")
+        button.setMainButtonTitle(TextConstants.continueTitle)
         button.isEnable = false
         return button
     }()
@@ -123,7 +123,7 @@ final class ModalView: UIView {
         }
     }
 
-    func secondsToMinutesSeconds(_ seconds: Int) -> (Int, Int) {
+    private func secondsToMinutesSeconds(_ seconds: Int) -> (Int, Int) {
         let min = seconds / 60
         let sec = seconds % 60
         return (min, sec)

@@ -13,13 +13,9 @@ final class FirstViewController: UIViewController {
     private lazy var mainButton: MainButton = {
         let button = MainButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setMainButtonTitle("Start")
+        button.setMainButtonTitle(TextConstants.start)
         return button
     }()
-
-    // MARK: - Public properties
-
-    // MARK: - Private properties
 
     // MARK: - Lifecycle
 
@@ -51,15 +47,12 @@ final class FirstViewController: UIViewController {
             self?.present(secondViewController, animated: true)
         }
     }
-
-    // MARK: - Public methods
 }
 
 // MARK: - Layout constants
 
 extension FirstViewController {
     private enum Constants {
-        static let edgeInset: CGFloat = 16
         static let buttonHeight: CGFloat = 48
     }
 }

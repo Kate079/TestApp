@@ -9,14 +9,6 @@ import Foundation
 import UIKit
 
 final class HorizontalCollectionViewCell: UICollectionViewCell {
-    // MARK: - Configuration data
-
-    struct Configuration {
-        let imageName: String
-        let title: String
-        let subtitle: String
-    }
-
     // MARK: - Static properties
 
     static var reuseIdentifier: String {
@@ -93,7 +85,7 @@ final class HorizontalCollectionViewCell: UICollectionViewCell {
 
     // MARK: - Public methods
 
-    func configure(_ item: Configuration) {
+    func configure(_ item: PageViewModel) {
         imageView.image = UIImage(named: item.imageName)
         titleLabel.text = item.title
         subtitleLabel.text = item.subtitle

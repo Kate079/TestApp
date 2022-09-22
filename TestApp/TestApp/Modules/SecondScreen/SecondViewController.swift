@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreData
 
 final class SecondViewController: UIViewController {
     // MARK: - Subviews
@@ -25,15 +26,19 @@ final class SecondViewController: UIViewController {
         return pageView
     }()
 
-    // MARK: - Public properties
-
     // MARK: - Private properties
 
-    private var isNextScreenWasShown = false {
+    private var isNextScreenWasShown: Bool = false {
         didSet {
             configureMainButtonHandler(isNextScreenWasShown: isNextScreenWasShown)
         }
     }
+    private let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+    private let pageViewContent: [PageViewModel] = [
+        PageViewModel(imageName: "Img01", title: "Boost Productivity", subtitle: "Take your productivity to the next level"),
+        PageViewModel(imageName: "Img02", title: "Work Seamlessly", subtitle: "Get your work done seamlessly without interruption"),
+        PageViewModel(imageName: "Img03", title: "Achieve Your Goals", subtitle: "Boosted productivity will help you achieve the desired goals")]
 
     // MARK: - Lifecycle
 
@@ -41,6 +46,7 @@ final class SecondViewController: UIViewController {
         super.viewDidLoad()
 
         configureUI()
+        fetchContext()
         configurePageView()
         configureMainButton(isLastPage: false)
     }
@@ -65,28 +71,44 @@ final class SecondViewController: UIViewController {
         ])
     }
 
+    private func saveContext() {
+        let configuration = Configuration(context: managedContext)
+        configuration.isTimerWasShown = isNextScreenWasShown
+
+        if managedContext.hasChanges {
+            do {
+                try managedContext.save()
+            } catch let error as NSError {
+                print("\(error), \(error.userInfo)")
+            }
+        }
+    }
+
+    private func fetchContext() {
+        let fetchRequest: NSFetchRequest<Configuration> = Configuration.fetchRequest()
+        do {
+            let data = try managedContext.fetch(fetchRequest)
+            if data.isEmpty {
+                saveContext()
+            } else {
+                isNextScreenWasShown = data.last!.isTimerWasShown
+            }
+
+        } catch let error as NSError {
+            print("\(error), \(error.userInfo)")
+        }
+    }
+
     private func configurePageView() {
-        pageView.configureView(with: [
-            HorizontalCollectionViewCell.Configuration(
-                imageName: "Img01",
-                title: "Boost Productivity",
-                subtitle: "Take your productivity to the next level"),
-            HorizontalCollectionViewCell.Configuration(
-                imageName: "Img02",
-                title: "Work Seamlessly",
-                subtitle: "Get your work done seamlessly without interruption"),
-            HorizontalCollectionViewCell.Configuration(
-                imageName: "Img03",
-                title: "Achieve Your Goals",
-                subtitle: "Boosted productivity will help you achieve the desired goals")])
+        pageView.configureView(with: pageViewContent)
     }
 
     private func configureMainButton(isLastPage: Bool) {
         if isLastPage {
-            mainButton.setMainButtonTitle("Continue")
+            mainButton.setMainButtonTitle(TextConstants.continueTitle)
             configureMainButtonHandler(isNextScreenWasShown: isNextScreenWasShown)
         } else {
-            mainButton.setMainButtonTitle("Next")
+            mainButton.setMainButtonTitle(TextConstants.next)
             mainButton.buttonAction = { [weak self] in
                 self?.pageView.showNextPage()
             }
@@ -97,21 +119,22 @@ final class SecondViewController: UIViewController {
         if isNextScreenWasShown {
             mainButton.buttonAction = { [weak self] in
                 guard let self = self else { return }
-                let alert = self.createAlert(title: "Thank you for your interest", message: "The functionality is under development", buttonTitle: "OK", buttonHandler: nil)
+                let alert = self.createAlert(title: TextConstants.alertTitle, message: TextConstants.alertMessage, buttonTitle: TextConstants.ok, buttonHandler: nil)
                 self.present(alert, animated: true)
             }
         } else {
             mainButton.buttonAction = { [weak self] in
-                self?.isNextScreenWasShown = true
                 let thirdViewController = ThirdViewController()
+                thirdViewController.isScreenWasShown = { [weak self] in
+                    self?.isNextScreenWasShown = true
+                    self?.saveContext()
+                }
                 thirdViewController.modalPresentationStyle = .overCurrentContext
                 thirdViewController.modalTransitionStyle = .crossDissolve
                 self?.present(thirdViewController, animated: true)
             }
         }
     }
-
-    // MARK: - Public methods
 }
 
 // MARK: - Layout constants

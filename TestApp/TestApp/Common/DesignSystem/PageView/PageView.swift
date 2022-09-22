@@ -39,7 +39,7 @@ final class PageView: UIView {
 
     // MARK: - Private properties
 
-    private var configurationData: [HorizontalCollectionViewCell.Configuration]?
+    private var configurationData: [PageViewModel]?
     private(set) var currentPage = 0 {
         didSet {
             guard let configurationData = configurationData else { return }
@@ -88,7 +88,7 @@ final class PageView: UIView {
 
     // MARK: - Public methods
 
-    func configureView(with data: [HorizontalCollectionViewCell.Configuration]) {
+    func configureView(with data: [PageViewModel]) {
         configurationData = data
         pageControl.numberOfPages = data.count
     }
